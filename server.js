@@ -31,6 +31,18 @@ App.post("/post-barang", (req,res) => {
   })
 })
 
+App.patch("/update-barang/:id", (req, res) => {
+  const id_barang = req.params.id;
+  const {nama_barang, kategori_barang} = req.body;
+  const sql = `UPDATE tbl_barang SET nama_barang = '${nama_barang}', kategori_barang = '${kategori_barang}' WHERE id_barang = ${id_barang}`;
+  client.query(sql, (err,result) =>{
+    if (err) return res.status(200).json({message: "Gagal Mengupdate Barang"});
+    res.status(200).json({message: "Berhasil Mengupdate Data barang"})
+  })
+})
+
+
+
 App.listen(Port, () => {
   console.log(`Application Up and Running on Port ${Port}`);
 });
